@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="forms_trello.css">
+    <title>Trello Board</title>
+</head>
+<body>
+    <header><h1>Trello toBe</h1></header>
+<main>
+
+    <form>
+        <label>Title</label>
+        <input type="text" name="title" required>
+
+        <label>Description</label>
+        <textarea name="description" id="" cols="30" rows="10" required>Description here</textarea>
+
+        <label>Deadline</label>
+        <input type="date" name="deadline" required>
+
+    </form>
+
+    <template>
+        <article>
+            <p class="title">Title here</p>
+            <p class="description">Description here</p>
+            <p class="deadline">Deadline here</p>
+        </article>
+    </template>
+
+    <div id="trellolist"></div>
+
+</main>
+
+<script src="forms_trello.js"></script>
+
+</body>
+</html>

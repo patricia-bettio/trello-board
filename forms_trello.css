@@ -16,3 +16,17 @@
 label {
     display: block;
 }
+
+.invalid {
+    border: 2px solid red;
+}
+
+
+/*hidden by default*/
+input + p {
+    display: none;
+}
+/*visible when input`s get the class "invalid"*/
+input.invalid + p {
+    display: block;
+}

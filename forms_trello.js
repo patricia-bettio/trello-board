@@ -1,5 +1,48 @@
 import {endpoint, apiKey} from "./modules/settings";
 
+//---------------------------FORM------------------------------------//
+
+const form = document.querySelector("form");
+window.form = form;
+const elements = form.elements;
+window.elements = elements;
+console.log(elements)
+
+
+form.setAttribute("novalidate", true);
+form.addEventListener("submit", (e) => {
+    e.preventDefault();
+     //loop through each of the elements. Whenever user clicks submit, we clear all invalid classes
+     const formElements = form.querySelectorAll("input");
+     //verify if they are valid
+     formElements.forEach((el)=>{
+    //for each we remove the invalid class
+    el.classList.remove("invalid");
+     })
+
+    if (form.checkValidity()){
+        //send to api
+        console.log("send to api")
+        postTrelloList({
+            title: form.elements.title.value,
+            description: form.elements.description.value,
+            deadline: form.elements.deadline.value
+
+        });
+        form.reset();
+    } else {
+   //if theres an issue, show the user error message
+       formElements.forEach((el)=>{
+       if(!el.checkValidity()){
+               el.classList.add("invalid");
+           }
+       })
+
+    }
+
+});
+
+//---------------------------GET------------------------------------//
 
 function getTrelloList(){
    
@@ -22,6 +65,7 @@ function buildTrelloList(data){
   
 }
 
+//---------------------------TEMPLATE------------------------------------//
 function showTasks(singleTask){
     console.log(singleTask)
     console.log(singleTask.title)
@@ -45,3 +89,30 @@ function showTasks(singleTask){
 }
 
 getTrelloList();
+
+
+//---------------------------POST------------------------------------//
+
+function postTrelloList(newTask){
+
+    const postData = JSON.stringify(newTask);
+    fetch(endpoint + "rest/trello", {
+    method: "post",
+    headers: {
+    "Content-Type": "application/json; charset=utf-8",
+    "x-apikey": apiKey,
+    "cache-control": "no-cache",
+},
+body: postData,
+})
+.then((res) => res.json())
+.then((data) => {
+  console.log(data);
+  showTrelloList(data);
+});
+
+}
+
+function showTrelloList(data){
+    console.log("show trello list")
+}

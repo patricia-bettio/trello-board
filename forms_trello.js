@@ -1,7 +1,17 @@
 import {endpoint, apiKey} from "./modules/settings";
 
+//---------------------------INIT------------------------------------//
+
+window.addEventListener("load", init);
+
+function init(){
+    setUpForm();
+    getTrelloList();
+}
+
 //---------------------------FORM------------------------------------//
 
+function setUpForm(){
 const form = document.querySelector("form");
 window.form = form;
 const elements = form.elements;
@@ -42,27 +52,6 @@ form.addEventListener("submit", (e) => {
 
 });
 
-//---------------------------GET------------------------------------//
-
-function getTrelloList(){
-   
-    fetch(endpoint + "rest/trello", {
-    method: "get",
-    headers: {
-    "accept": "application/json",
-    "x-apikey": apiKey,
-    "cache-control": "no-cache",
-}
-})
-.then((res) => res.json())
-.then(buildTrelloList)
-
-};
-
-function buildTrelloList(data){
-    console.log(data)
-    data.forEach(showTasks);
-  
 }
 
 //---------------------------TEMPLATE------------------------------------//
@@ -87,8 +76,6 @@ function showTasks(singleTask){
     parent.appendChild(copy);   
     
 }
-
-getTrelloList();
 
 
 //---------------------------POST------------------------------------//
@@ -116,3 +103,21 @@ body: postData,
 function showTrelloList(data){
     console.log("show trello list")
 }
+
+
+//---------------------------GET------------------------------------//
+
+function getTrelloList(){
+   
+    fetch(endpoint + "rest/trello", {
+    method: "get",
+    headers: {
+    "accept": "application/json",
+    "x-apikey": apiKey,
+    "cache-control": "no-cache",
+}
+})
+.then((res) => res.json())
+.then((data) => data.forEach(showTasks))
+
+};

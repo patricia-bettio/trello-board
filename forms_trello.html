@@ -10,17 +10,34 @@
     <header><h1>Trello toBe</h1></header>
 <main>
 
-<div class="allLists">
-    <div class="toDo">
-        <ul>To do List here</ul>
-    </div>
-    <div class="inProgress">
-        <ul>In Progress list here</ul>
-    </div>
-    <div class="completed">
-        <ul>Completed list here</ul>
-    </div>
-</div>
+
+
+<fieldset id="toDo">
+
+    <legend>To Do</legend>
+    <ul id="toDoTasks">
+        <label for="toDoTask">To Do</label>
+    </ul>
+
+</fieldset>
+
+<fieldset>
+
+    <legend>In progress</legend>
+    <ul id="inProgressTasks">
+        <label for="inProgressTask">In progress</label>
+    </ul>
+
+</fieldset>
+
+<fieldset>
+
+    <legend>Done</legend>
+    <ul id="doneTasks">
+        <label for="doneTask">Done</label>
+    </ul>
+
+</fieldset>
 
     <form>
         <label>Title</label>
@@ -36,6 +53,7 @@
 
     <template>
         <article>
+                <ul></ul>
                 <p class="title"></p>
                 <p class="description"></p>
                 <p class="deadline"></p>

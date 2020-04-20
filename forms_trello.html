@@ -39,7 +39,7 @@
 
 </fieldset>
 
-    <form>
+    <form data-state="post">
         <label>Title</label>
         <input type="text" name="title" required>
         <p>Title of the task is required</p>
@@ -65,6 +65,8 @@
                 <p class="title"></p>
                 <p class="description"></p>
                 <p class="deadline"></p>
+                <button data-action="delete" class="deleteButton" data-id>Delete</button>
+                <button data-action="edit" class="editButton" data-id>Edit</button>
         </article>
     </template>
 

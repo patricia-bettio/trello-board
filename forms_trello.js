@@ -37,14 +37,16 @@ form.addEventListener("submit", (e) => {
             postTrelloList({
                 title: form.elements.title.value,
                 description: form.elements.description.value,
-                deadline: form.elements.deadline.value
+                deadline: form.elements.deadline.value,
+                status: form.elements.status.value
     
             });
         } else {
             putTrelloList({
                 title: form.elements.title.value,
                 description: form.elements.description.value,
-                deadline: form.elements.deadline.value
+                deadline: form.elements.deadline.value,
+                status: form.elements.status.value
     
             }, form.dataset.id);
         }
@@ -67,6 +69,7 @@ form.addEventListener("submit", (e) => {
 function showTasks(singleTask){
     console.log(singleTask)
     console.log(singleTask.title)
+    console.log(singleTask.status)
     //1.get template
     const template = document.querySelector("template").content;
     //2.clone it
@@ -74,12 +77,12 @@ function showTasks(singleTask){
     //parent
     const parent = document.querySelector("#toDoTasks");
     //console.log(document.querySelector("main"))
-    console.log(document.querySelector("#toDoTasks"))
+    //console.log(document.querySelector("#toDoTasks"))
     //copy into the template
     copy.querySelector("p.title").textContent = singleTask.title;
     copy.querySelector("p.description").textContent = singleTask.description;
     copy.querySelector("p.deadline").textContent = singleTask.deadline;
-    //buttons (to do, in prog, done)
+    //copy.querySelector(".status").textContent = singleTask.status;
     //action on the delete button
     copy.querySelector(`[data-action="delete"]`).addEventListener("click", (e) => deleteTask(singleTask._id));
     copy.querySelector(`[data-action="edit"]`).addEventListener("click", (e) => editPrepareTask(singleTask._id, setUpFormForEdit));
@@ -138,6 +141,8 @@ function setUpFormForEdit(data){
     form.elements.title.value = data.title;
     form.elements.description.value = data.description;
     form.elements.deadline.value = data.deadline;
+    form.elements.status.value = data.status;
+    console.log(data.status.value)
 
 }
 //---------------------------POST------------------------------------//
@@ -199,4 +204,3 @@ function getTrelloList(){
 .then((data) => data.forEach(showTasks))
 
 };
-

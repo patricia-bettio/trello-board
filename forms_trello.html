@@ -40,6 +40,17 @@
 </fieldset>
 
     <form data-state="post">
+
+        <label for="toDo">To Do</label>
+        <input type="radio" name="status" value="To Do">
+
+        <label for="inProgress">In Progress</label>
+        <input type="radio" name="status" value="In Progress">
+
+        <label for="Done">Done</label>
+        <input type="radio" name="status" value="Done">
+
+
         <label>Title</label>
         <input type="text" name="title" required>
         <p>Title of the task is required</p>
@@ -61,7 +72,7 @@
 
     <template>
         <article>
-                <ul></ul>
+                <div class="status"></div>
                 <p class="title"></p>
                 <p class="description"></p>
                 <p class="deadline"></p>

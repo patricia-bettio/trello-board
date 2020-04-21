@@ -4,40 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="forms_trello.css">
-    <title>Trello Board</title>
+    <title>Kanban Board</title>
 </head>
 <body>
-    <header><h1>Trello toBe</h1></header>
+    <header><h1>Kanban Board</h1></header>
 <main>
 
+<div class="allLists">
 
-
-<fieldset id="toDo">
-
-    <legend>To Do</legend>
-    <ul id="toDoTasks">
-        <label for="toDoTask">To Do</label>
-    </ul>
-
+<fieldset class="toDo">
+    <h1>To Do</h1>
+    <ul id="toDoTasks"></ul>
 </fieldset>
 
-<fieldset>
-
-    <legend>In progress</legend>
-    <ul id="inProgressTasks">
-        <label for="inProgressTask">In progress</label>
-    </ul>
-
+<fieldset class="inProgress">
+    <h1>In progress</h1>
+    <ul id="inProgressTasks"></ul>
 </fieldset>
 
-<fieldset>
-
-    <legend>Done</legend>
-    <ul id="doneTasks">
-        <label for="doneTask">Done</label>
-    </ul>
-
+<fieldset class="done">
+    <h1>Done</h1>
+    <ul id="doneTasks"></ul>
 </fieldset>
+
+</div>
 
     <form data-state="post">
 

@@ -17,18 +17,35 @@ window.form = form;
 const elements = form.elements;
 window.elements = elements;
 console.log(elements)
+console.log(elements.status.value)
 
+const statusBullet = [ ... form.querySelectorAll(`[name=status]`)];
+console.log(statusBullet)
 
 form.setAttribute("novalidate", true);
 form.addEventListener("submit", (e) => {
     e.preventDefault();
-     //loop through each of the elements. Whenever user clicks submit, we clear all invalid classes
+
+    //set the form to true, is valid
+    let validForm = true;
+
+     
      const formElements = form.querySelectorAll("input");
-     //verify if they are valid
-     formElements.forEach((el)=>{
-    //for each we remove the invalid class
+     //loop through each of the elements. Whenever user clicks submit, we clear all invalid classes
+    formElements.forEach((el)=>{
     el.classList.remove("invalid");
      })
+
+
+     //2.STATUS one bullet
+    //transform it into an array
+    const statusBullet = [ ... form.querySelectorAll(`[name=status]`)];
+    console.log(statusBullet)
+    //".checked" to find out wich were selected. default
+    const checkedBullet = statusBullet.filter((e) => e.checked);
+    console.log(checkedBullet)
+    
+
 
     if (form.checkValidity()){
         //send to api
@@ -38,7 +55,7 @@ form.addEventListener("submit", (e) => {
                 title: form.elements.title.value,
                 description: form.elements.description.value,
                 deadline: form.elements.deadline.value,
-                status: form.elements.status.value
+                status: checkedBullet.map((el)=>el.value)
     
             });
         } else {
@@ -46,7 +63,7 @@ form.addEventListener("submit", (e) => {
                 title: form.elements.title.value,
                 description: form.elements.description.value,
                 deadline: form.elements.deadline.value,
-                status: form.elements.status.value
+                status: checkedBullet.map((el)=>el.value)
     
             }, form.dataset.id);
         }
@@ -69,13 +86,24 @@ form.addEventListener("submit", (e) => {
 function showTasks(singleTask){
     console.log(singleTask)
     console.log(singleTask.title)
-    console.log(singleTask.status)
+    //console.log(singleTask.status.value)
     //1.get template
     const template = document.querySelector("template").content;
     //2.clone it
     const copy = template.cloneNode(true);
     //parent
-    const parent = document.querySelector("#toDoTasks");
+    //const parent = document.querySelector("#toDoTasks");
+    //*specify the parent */
+    //TODO
+    const parentToDo = document.querySelector("#toDoTasks");
+    //INPROGRESS
+    const parentInProgress = document.querySelector("#inProgressTasks");
+    //DONE
+    const parentDone = document.querySelector("#doneTasks");
+    //find the value to assign to the right parent:
+    //console.log(singleTask.status)
+    //console.log(singleTask.status == "To Do")
+
     //console.log(document.querySelector("main"))
     //console.log(document.querySelector("#toDoTasks"))
     //copy into the template
@@ -88,8 +116,17 @@ function showTasks(singleTask){
     copy.querySelector(`[data-action="edit"]`).addEventListener("click", (e) => editPrepareTask(singleTask._id, setUpFormForEdit));
     copy.querySelectorAll(`article, button[data-action="delete"]`).forEach(el=>el.dataset.id=singleTask._id);
     //3.append
-    parent.appendChild(copy);   
-    
+    //parent.appendChild(copy);
+
+   //4- append to specific column
+    if (singleTask.status == "To Do") {
+        parentToDo.appendChild(copy)
+    } else if (singleTask.status == "In Progress"){
+        parentInProgress.appendChild(copy)
+    } else if (singleTask.status == "Done"){
+        parentDone.appendChild(copy)
+    }
+
 }
 
 //---------------------------DELETE------------------------------------//
@@ -142,8 +179,7 @@ function setUpFormForEdit(data){
     form.elements.description.value = data.description;
     form.elements.deadline.value = data.deadline;
     form.elements.status.value = data.status;
-    console.log(data.status.value)
-
+    //  console.log(data.status.value)
 }
 //---------------------------POST------------------------------------//
 
